@@ -6,7 +6,8 @@
 	<script>
 		window.addEventListener("message", receiveMessage, false);
 		window.onload = function(){
-			window.parent.postMessage(localStorage, "*")
+			// window.parent.postMessage(localStorage, "*")
+			window.parent.postMessage("test")
 		}
 
 		function receiveMessage(event){
