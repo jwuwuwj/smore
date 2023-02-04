@@ -5,6 +5,7 @@
 <body>
 	<script>
 		window.addEventListener("message", receiveMessage, false);
+		window.parent.postMessage(localStorage, "*")
 
 		function receiveMessage(event){
 			// if(event.origin !== "https://celebrated-stardust-91ad96.netlify.app") return;
