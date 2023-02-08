@@ -42,11 +42,17 @@ function receiveMessage(event){
 			window.parent.postMessage({ id: "sendSiteData", data: "never_saved_before" }, "*")
 		} else {
 			window.parent.postMessage({ id: "sendSiteData", data: siteData() }, "*")
+			localStorage.setItem("sendSiteData", Date.now())
 		}
 	}
 
 	if(event.data.id === "sendSiteData"){
-		localStorage.setItem("sendSiteData", Date.now())
+		if(parseInt(event.data.lastSaved) < parseInt(localStorage.getItem("savedSiteData"))){
+			//not most recent save
+			window.parent.postMessage({ id: "sendSiteData", data: siteData() }, "*")
+			localStorage.setItem("sendSiteData", Date.now())
+		}
+		localStorage.setItem("savedSiteData", Date.now())
 
 		for(let i = 0; i < event.data.data.length; i++){
 			localStorage.setItem(event.data.data[i].key, event.data.data[i].data)
