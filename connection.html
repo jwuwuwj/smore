@@ -3,20 +3,6 @@
 <head>
 </head>
 <body>
-	<script>
-		window.addEventListener("message", receiveMessage, false);
-		window.onload = function(){
-			// window.parent.postMessage(localStorage, "*")
-			window.parent.postMessage("test")
-		}
-
-		function receiveMessage(event){
-			// if(event.origin !== "https://celebrated-stardust-91ad96.netlify.app") return;
-			console.log(event.data)
-
-			// var iframe = document.getElementById("testdata");
-			// iframe.contentWindow.postMessage(localStorage, "*")
-		}
-	</script>
+	<script src="connection.js"></script>
 </body>
 </html>
