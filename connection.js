@@ -8,7 +8,7 @@ function receiveMessage(event){
 	// if(event.origin !== "https://celebrated-stardust-91ad96.netlify.app") return;
 	console.log(event.data)
 
-	if(event.data === "fetchSiteSettings"){
+	if(event.data.id === "fetchSiteSettings"){
 		if(localStorage.getItem("savedSiteSettings") === null){
 			//never saved before
 			window.parent.postMessage({ id: "sendSiteData", data: "never_saved_before" }, "*")
