@@ -12,7 +12,6 @@ var siteSaves = [
 	"lvl",
 	"alerts",
 	"playedGames",
-	//achievement_data
 	"badges",
 	"everyGame",
 	"titles",
@@ -24,6 +23,25 @@ var siteSaves = [
 	"tabCloak",
 	"theme",
 	"bannerMessageNum",
+
+	"play_10_minutes",
+	"play_20_minutes",
+	"play_30_minutes",
+	"play_40_minutes",
+	"play_50_minutes",
+	"play_60_minutes",
+	"play_24_hours",
+	"reach_level_10",
+	"reach_level_25",
+	"reach_level_50",
+	"reach_level_69",
+	"reach_level_100",
+	"play_10_games",
+	"play_25_games",
+	"play_50_games",
+	"play_every_game",
+	"read_2_blogs",
+	"read_10_blogs",
 ]
 
 window.addEventListener("message", receiveMessage, false);
@@ -51,8 +69,10 @@ function receiveMessage(event){
 			//not most recent save
 			window.parent.postMessage({ id: "sendSiteData", data: siteData() }, "*")
 			localStorage.setItem("sendSiteData", Date.now())
+			return console.log("not recent")
 		}
 		localStorage.setItem("savedSiteData", event.data.lastSaved)
+		console.log("saved")
 
 		for(let i = 0; i < event.data.data.length; i++){
 			localStorage.setItem(event.data.data[i].key, event.data.data[i].data)
