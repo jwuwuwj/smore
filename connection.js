@@ -80,6 +80,7 @@ function receiveMessage(event){
 	}
 
 	if(event.data.id === "sendGameData"){
+		if(localStorage.getItem("savedGameData") !== null) return;
 		localStorage.setItem("savedGameData", event.data.lastsaved)
 		for(let i = 0; i < event.data.data.length; i++){
 			localStorage.setItem(event.data.data[i].key, event.data.data[i].data)
