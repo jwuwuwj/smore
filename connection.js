@@ -52,7 +52,7 @@ window.addEventListener("message", receiveMessage, false);
 
 function receiveMessage(event){
 	// if(event.origin !== "https://celebrated-stardust-91ad96.netlify.app") return;
-	console.log(event.data)
+	// console.log(event.data)
 
 	if(event.data.id === "fetchSiteData"){
 		if(localStorage.getItem("savedSiteData") === null){
