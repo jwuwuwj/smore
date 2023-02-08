@@ -71,7 +71,7 @@ function receiveMessage(event){
 			localStorage.setItem("sendSiteData", Date.now())
 			return console.log("not recent")
 		}
-		localStorage.setItem("savedSiteData", event.data.lastSaved)
+		localStorage.setItem("savedSiteData", event.data.lastsaved)
 		console.log("saved")
 
 		for(let i = 0; i < event.data.data.length; i++){
