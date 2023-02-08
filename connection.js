@@ -65,7 +65,7 @@ function receiveMessage(event){
 	}
 
 	if(event.data.id === "sendSiteData"){
-		if(parseInt(event.data.lastSaved) < parseInt(localStorage.getItem("savedSiteData"))){
+		if(parseInt(event.data.lastsaved) < parseInt(localStorage.getItem("savedSiteData"))){
 			//not most recent save
 			window.parent.postMessage({ id: "sendSiteData", data: siteData() }, "*")
 			localStorage.setItem("sendSiteData", Date.now())
