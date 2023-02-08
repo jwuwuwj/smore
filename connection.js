@@ -52,7 +52,7 @@ function receiveMessage(event){
 			window.parent.postMessage({ id: "sendSiteData", data: siteData() }, "*")
 			localStorage.setItem("sendSiteData", Date.now())
 		}
-		localStorage.setItem("savedSiteData", Date.now())
+		localStorage.setItem("savedSiteData", event.data.lastSaved)
 
 		for(let i = 0; i < event.data.data.length; i++){
 			localStorage.setItem(event.data.data[i].key, event.data.data[i].data)
