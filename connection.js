@@ -1,3 +1,31 @@
+var siteSaves = [
+	"viewedBlogs",
+	"favorites",
+	"nav",
+	"themeHex",
+	"gameIcon",
+	"mode",
+	"instantGame",
+	"hotkeys",
+	"minutes_played",
+	"xp",
+	"lvl",
+	"alerts",
+	"playedGames",
+	//achievement_data
+	"badges",
+	"everyGame",
+	"titles",
+	"achievementCompletedCount",
+	"FPSCount",
+	"sgs_profile_username",
+	"sgs_profile_title",
+	"openSidebar",
+	"tabCloak",
+	"theme",
+	"bannerMessageNum",
+]
+
 window.addEventListener("message", receiveMessage, false);
 // window.onload = function(){
 // 	// window.parent.postMessage(localStorage, "*")
@@ -8,15 +36,36 @@ function receiveMessage(event){
 	// if(event.origin !== "https://celebrated-stardust-91ad96.netlify.app") return;
 	console.log(event.data)
 
-	if(event.data.id === "fetchSiteSettings"){
-		if(localStorage.getItem("savedSiteSettings") === null){
+	if(event.data.id === "fetchSiteData"){
+		if(localStorage.getItem("savedSiteData") === null){
 			//never saved before
 			window.parent.postMessage({ id: "sendSiteData", data: "never_saved_before" }, "*")
 		} else {
-			window.parent.postMessage({ id: "sendSiteData", data: "this would be site settings" }, "*")
+			window.parent.postMessage({ id: "sendSiteData", data: siteData() }, "*")
 		}
 	}
 
+	if(event.data.id === "sendSiteData"){
+		localStorage.setItem("sendSiteData", Date.now())
+
+		for(let i = 0; i < event.data.data.length; i++){
+			localStorage.setItem(event.data.data[i].key, event.data.data[i].data)
+		}
+	}
 	// var iframe = document.getElementById("testdata");
 	// iframe.contentWindow.postMessage(localStorage, "*")
+}
+
+function siteData(){
+	var values = [],
+    keys = Object.keys(localStorage),
+    i = 0, keys;
+
+    for(; key = keys[i]; i++){
+        values.push({key: key, data: localStorage.getItem(key)});
+    }
+
+    var data = values.filter(val => siteSaves.includes(val.key))
+
+    return data;
 }
