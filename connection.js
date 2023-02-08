@@ -78,6 +78,13 @@ function receiveMessage(event){
 			localStorage.setItem(event.data.data[i].key, event.data.data[i].data)
 		}
 	}
+
+	if(event.data.id === "sendGameData"){
+		localStorage.setItem("savedGameData", event.data.lastsaved)
+		for(let i = 0; i < event.data.data.length; i++){
+			localStorage.setItem(event.data.data[i].key, event.data.data[i].data)
+		}
+	}
 	// var iframe = document.getElementById("testdata");
 	// iframe.contentWindow.postMessage(localStorage, "*")
 }
