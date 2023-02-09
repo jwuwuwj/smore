@@ -77,6 +77,7 @@ function receiveMessage(event){
 		for(let i = 0; i < event.data.data.length; i++){
 			localStorage.setItem(event.data.data[i].key, event.data.data[i].data)
 		}
+		sendBackupData();
 	}
 
 	if(event.data.id === "sendGameData"){
@@ -85,6 +86,7 @@ function receiveMessage(event){
 		for(let i = 0; i < event.data.data.length; i++){
 			localStorage.setItem(event.data.data[i].key, event.data.data[i].data)
 		}
+		sendBackupData();
 	}
 	// var iframe = document.getElementById("testdata");
 	// iframe.contentWindow.postMessage(localStorage, "*")
