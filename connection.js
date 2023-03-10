@@ -1,3 +1,6 @@
+var currentVersion = "v6.5.0"
+var downloadURL = "testurllol"
+
 var siteSaves = [
 	"viewedBlogs",
 	"favorites",
@@ -55,6 +58,14 @@ window.addEventListener("message", receiveMessage, false);
 function receiveMessage(event){
 	// if(event.origin !== "https://celebrated-stardust-91ad96.netlify.app") return;
 	// console.log(event.data)
+
+	if(event.data.id === "checkVersion"){
+		if(event.data.version === version){
+			return;
+		} else {
+			window.parent.postMessage({ id: "updatedVersion", version: version, download: downloadURL }, "*")
+		}
+	}
 
 	if(event.data.id === "fetchSiteData"){
 		if(localStorage.getItem("savedSiteData") === null){
