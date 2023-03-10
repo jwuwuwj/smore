@@ -60,10 +60,10 @@ function receiveMessage(event){
 	// console.log(event.data)
 
 	if(event.data.id === "checkVersion"){
-		if(event.data.version === version){
+		if(event.data.version === currentVersion){
 			return;
 		} else {
-			window.parent.postMessage({ id: "updatedVersion", version: version, download: downloadURL }, "*")
+			window.parent.postMessage({ id: "updatedVersion", version: currentVersion, download: downloadURL }, "*")
 		}
 	}
 
