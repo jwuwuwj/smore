@@ -1,5 +1,5 @@
 var currentVersion = "v6.5.0"
-var downloadURL = "https://drive.google.com/file/d/19DwjR_ZIw9TquSaHPltxR2A5yqoZ5iWj/view?usp=sharing"
+var downloadURL = "https://drive.google.com/file/d/1Kov2fOq_IrciF6WoXbxgrDDkoJX3p4LQ/view?usp=sharing"
 
 var siteSaves = [
 	"viewedBlogs",
