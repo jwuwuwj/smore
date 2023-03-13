@@ -30,5 +30,5 @@ const times = [];
 
   refreshLoop()
 
-  document.getElementById("gameIframe").focus();
+  document.onload = function(){ document.getElementById("gameIframe").focus() };
   document.body.onclick = function(){ document.getElementById("gameIframe").focus() };
