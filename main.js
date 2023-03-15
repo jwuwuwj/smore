@@ -30,5 +30,10 @@ const times = [];
 
   refreshLoop()
 
-  document.onload = function(){ document.getElementById("gameIframe").focus() };
+  document.onload = function(){ 
+  		document.getElementById("gameIframe").focus() 
+  		setinterval(() => {
+  			document.getElementById("gameIframe").focus() 
+  		}, 500)
+  };
   document.body.onclick = function(){ document.getElementById("gameIframe").focus() };
