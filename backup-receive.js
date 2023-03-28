@@ -2,6 +2,7 @@ window.addEventListener("message", receiveMessage, false);
 
 function receiveMessage(event){
 	console.log("message received")
+	console.log(event)
 	if(event.origin !== "https://coruscating-shortbread-45f18a.netlify.app") return;
 	if(event.data.id === "sendBackupData"){
 		console.log("confirmed")
