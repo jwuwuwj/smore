@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="src/index.css">
+    <meta charset="UTF-8" />
+    <title>Bettily Connect 4</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+      
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div>
+      <!-- <h2 align="center">Connect 4</h2> -->
+      <!-- <h3>Created by Betty Yee & Emily Ma</h1> -->
+    </div>
+    <div id="root" align="center"></div>
+    <script type="text/babel">
+      function Square(props) {
+  return (
+    <button className="square" 
+    onClick={props.onClick} 
+    onMouseEnter={props.onMouseEnter} 
+    onMouseLeave={props.onMouseLeave}>
+      <Circle bgColor={props.color}/> 
+    </button>
+  )
+}
+
+function Circle(props) {
+  return (
+    <div className="circle" style={{backgroundColor: props.bgColor}}></div>
+  );
+}
+  
+  class Board extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          squares: Array(42).fill(null),
+          redIsNext: true,
+          hoverSquare: null,
+        };
+      }
+    
+    resetBoard = () => {
+      this.setState({
+        squares: Array(42).fill(null),
+        redIsNext: true,
+        hoverSquare: null,
+      })
+    }
+
+    displayInstructions = () => {
+      var x = document.getElementById("instructions");
+      document.getElementById("instructions").style.fontSize = "medium";
+      document.getElementById("instructions").style.width = "500px";
+      if (x.innerHTML === "") {
+        x.innerHTML = "Connect 4 is a two player game. Each player will take turns to try to stack four pieces of their color together.\n Once four pieces of one color are together, that player has won.";
+      } else {
+        x.innerHTML = "";
+      }
+    }
+    
+    findBottomSquare(index) {
+      // Returns the number square that is the lowest valid move
+      // in the same column as the given index.
+      // Returns null if there are no valid squares in the column.
+
+      const bottomRow = [35, 36, 37, 38, 39, 40, 41];
+      const columnIndex = index % 7;
+      let bottomSquare = bottomRow[columnIndex]; // bottom square of the col
+
+      // check from bottom up for an empty square
+      while (bottomSquare >= 0) {
+        if (!this.state.squares[bottomSquare]) {
+          return bottomSquare;
+        }
+        bottomSquare -= 7;
+      }
+
+      // return null if no other square in the column is empty
+      return null;
+    }
+
+    handleClick(i) {
+      const squares = this.state.squares.slice();
+      if (calculateWinner(squares)) {
+        alert(calculateWinner(squares) + " wins!");
+        return;
+      }
+
+      const bottomSquare = this.findBottomSquare(i);
+      if (bottomSquare !== 0 && !bottomSquare) {
+        return;
+      }
+
+      squares[bottomSquare] = this.state.redIsNext ? 'Red' : 'Yellow';
+      let newBottomSquare = bottomSquare - 7;
+      if (newBottomSquare < 0 || calculateWinner(squares)) {
+        newBottomSquare = null;
+      }
+
+      this.setState({
+        squares: squares,
+        redIsNext: !this.state.redIsNext,
+        hoverSquare: newBottomSquare,
+      });
+    }
+
+    onMouseEnter(i) {
+      const bottomSquare = this.findBottomSquare(i);
+      if (bottomSquare !== 0 && !bottomSquare) {
+        return;
+      }
+      if (calculateWinner(this.state.squares)) {
+        return;
+      }
+
+      this.setState({
+        hoverSquare: bottomSquare,
+      });
+    }
+
+    onMouseLeave() {
+      if (calculateWinner(this.state.squares)) {
+        return;
+      }
+      this.setState({
+        hoverSquare: null,
+      });
+    }
+
+    renderSquare(i) {
+      const square = this.state.squares[i];
+      let color;
+      if (square === 'Red') {
+        color = '#F01E22';
+      } else if (square === 'Yellow') {
+        color = '#FFDB00';
+      } else {
+        color = '#FFFFFF';
+      }
+
+      if (this.state.hoverSquare === i) {
+        if (this.state.redIsNext) {
+          color = '#FF8076'; // Red hover
+        } else {
+          color = '#FDF1AA'; // Yellow hover
+        }
+      }
+
+      return (
+        <Square
+        color={color}
+        onClick={()=> this.handleClick(i)}
+        onMouseEnter={()=> this.onMouseEnter(i)}
+        onMouseLeave={()=> this.onMouseLeave()}
+        />
+      );
+    }
+  
+    render() {
+      const winner = calculateWinner(this.state.squares);
+      let status;
+      if (winner === "Tie") {
+        status = 'Game over: Tie';
+      }
+      // else if (winner){
+      //   status = 'Winner: ' + winner;
+      // }
+      else if (!winner) {
+        status = 'Next player: ' + (this.state.redIsNext ? 'Red' : 'Yellow');
+      }
+  
+      return (
+        <div>
+          <div className="title">{"Connect 4"}</div>
+          <div className="status">{status}</div>
+          <button className="instructions" onClick={this.displayInstructions} size="Large">
+            Instructions
+          </button>
+          <button className="reset" onClick={this.resetBoard} size="Large">
+            Reset
+          </button>
+          <p id="instructions"></p>
+          <div className="board-row">
+            {this.renderSquare(0)}
+            {this.renderSquare(1)}
+            {this.renderSquare(2)}
+            {this.renderSquare(3)}
+            {this.renderSquare(4)}
+            {this.renderSquare(5)}
+            {this.renderSquare(6)}
+          </div>
+          <div className="board-row">
+            {this.renderSquare(7)}
+            {this.renderSquare(8)}
+            {this.renderSquare(9)}
+            {this.renderSquare(10)}
+            {this.renderSquare(11)}
+            {this.renderSquare(12)}
+            {this.renderSquare(13)}
+          </div>
+          <div className="board-row">
+            {this.renderSquare(14)}
+            {this.renderSquare(15)}
+            {this.renderSquare(16)}
+            {this.renderSquare(17)}
+            {this.renderSquare(18)}
+            {this.renderSquare(19)}
+            {this.renderSquare(20)}
+          </div>
+          <div className="board-row">
+            {this.renderSquare(21)}
+            {this.renderSquare(22)}
+            {this.renderSquare(23)}
+            {this.renderSquare(24)}
+            {this.renderSquare(25)}
+            {this.renderSquare(26)}
+            {this.renderSquare(27)}
+          </div>
+          <div className="board-row">
+            {this.renderSquare(28)}
+            {this.renderSquare(29)}
+            {this.renderSquare(30)}
+            {this.renderSquare(31)}
+            {this.renderSquare(32)}
+            {this.renderSquare(33)}
+            {this.renderSquare(34)}
+          </div>
+          <div className="board-row">
+            {this.renderSquare(35)}
+            {this.renderSquare(36)}
+            {this.renderSquare(37)}
+            {this.renderSquare(38)}
+            {this.renderSquare(39)}
+            {this.renderSquare(40)}
+            {this.renderSquare(41)}
+          </div>
+        </div>
+      );
+    }
+  }
+  
+  class Game extends React.Component {
+    render() {
+      return (
+        <div className="game">
+          <div className="game-board">
+            <Board />
+          </div>
+          <div className="game-info">
+            <div>{/* status */}</div>
+            <ol>{/* TODO */}</ol>
+          </div>
+        </div>
+      );
+    }
+  }
+
+  function winnerHorizontal(squares) {
+    let ind;
+    for (let i = 0; i < 6; i++){
+      for (let j = 0; j < 4; j++){
+        ind = j + (7*i);
+        if (squares[ind] && squares[ind] === squares[ind+1] && squares[ind] === squares[ind+2] 
+          && squares[ind] === squares[ind+3]){
+          return squares[ind];
+        }
+      }
+    }
+    return null;
+  }
+
+  function winnerVertical(squares) {
+    const arr = [];
+    for(let i = 0; i < 7; i++){
+      const sub_arr = [];
+      for(let j = i; j < 42; j = j + 7){
+        sub_arr.push(j);
+      }
+      arr.push(sub_arr);
+    }
+    for (let i = 0; i<arr.length; i++){
+      for (let ind = 0; ind < 3; ind++){
+        const check = squares[arr[i][ind]];
+        if (check && check === squares[arr[i][ind+1]] && check === squares[arr[i][ind+2]] && check === squares[arr[i][ind+3]]){
+          return check;
+        }
+      }
+    }
+    return null;
+  }
+
+  function winnerDiagonal(squares) {
+    const notInForward = [0, 1, 2, 7, 8, 14, 27, 33, 34, 39, 40, 41];
+    const startingForward = [3, 4, 5, 6, 13, 20];
+    const forward_arr = [];
+
+    const notInBackward = [4, 5, 6, 12, 13, 20, 21, 28, 29, 35, 36, 37];
+    const startingBackward = [14, 7, 0, 1, 2, 3];
+    const backward_arr = [];
+
+    for (let i = 0; i < startingForward.length; i++) {
+      const forward_sub_arr = [];
+      const backward_sub_arr = [];
+      for (let j = startingForward[i]; j < 39; j = j + 6) {
+        if (!notInForward.includes(j)) {
+          forward_sub_arr.push(j)
+        }
+      }
+      for (let j = startingBackward[i]; j < 42; j = j + 8) {
+        if (!notInBackward.includes(j)) {
+          backward_sub_arr.push(j)
+        }
+      }
+      forward_arr.push(forward_sub_arr);
+      backward_arr.push(backward_sub_arr);
+    }
+   
+    for (let ind = 0; ind < forward_arr.length; ind++) {
+      const forward_bound = forward_arr[ind].length - 4;
+      const backward_bound = backward_arr[ind].length - 4;
+      for (let i = 0; i <= forward_bound; i++) {
+        const fcheck = squares[forward_arr[ind][i]];
+        if (fcheck && fcheck === squares[forward_arr[ind][i+1]] && fcheck === squares[forward_arr[ind][i+2]] && fcheck === squares[forward_arr[ind][i+3]]){
+          
+          return fcheck;
+        }
+      }
+      for (let i = 0; i <= backward_bound; i++) {
+        const bcheck = squares[backward_arr[ind][i]];
+        if (bcheck && bcheck === squares[backward_arr[ind][i+1]] && bcheck === squares[backward_arr[ind][i+2]] && bcheck === squares[backward_arr[ind][i+3]]){
+          return bcheck;
+        } 
+      }
+    }
+   return null;
+  }
+
+  function tie(squares) {
+    let ret = "Tie";
+    for (let i = 0; i < squares.length; i++) {
+      if (!squares[i]) {
+        ret = null;
+      }
+    }
+    return ret
+  }
+
+  function calculateWinner(squares) {
+    let winner;
+    if (tie(squares)) {
+      winner = tie(squares);
+    }
+    if (winnerHorizontal(squares)){
+      winner = winnerHorizontal(squares);
+    }
+    if (winnerVertical(squares)){
+      winner = winnerVertical(squares);
+    }
+    if (winnerDiagonal(squares)) {
+      winner = winnerDiagonal(squares);
+    }
+    return winner;
+  }
+
+      ReactDOM.render(
+        React.createElement(Game),
+        document.getElementById('root')
+      );
+
+    </script>
+    <!--
+      Note: this page is a great way to try React but it's not suitable for production.
+      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+      Read this section for a production-ready setup with JSX:
+      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
+
+      In a larger project, you can use an integrated toolchain that includes JSX instead:
+      https://reactjs.org/docs/create-a-new-react-app.html
+
+      You can also use React without JSX, in which case you can remove Babel:
+      https://reactjs.org/docs/react-without-jsx.html
+    -->
+  </body>
+</html>

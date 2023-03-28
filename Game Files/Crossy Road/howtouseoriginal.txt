@@ -1,2 +1,0 @@
-after the slash, add index.html?world=original 
-for example, https://example.com/crossy-road/index.html?world=original
