@@ -26,7 +26,7 @@ function initImages() {
 
 function initSounds() {
     if(!mobile){
-	music = new Audio("sounds/music.mp3");
+	music = new Audio("https://raw.githubusercontent.com/SyceProjects/sgs-gitcdn/main/Projects/Worlds Hardest Game/sounds/music.mp3");
     music.loop = true;
 
     sfx_bounce0      = new Audio("sounds/sfx_bounce0.mp3");
