@@ -1,9 +1,9 @@
 {
 "companyName": "DMA",
 "productName": "Stack Ball 2",
-"dataUrl": "StackBall2_GDistribution.data.unityweb",
-"wasmCodeUrl": "StackBall2_GDistribution.wasm.code.unityweb",
-"wasmFrameworkUrl": "StackBall2_GDistribution.wasm.framework.unityweb",
+"dataUrl": "https://raw.githubusercontent.com/SyceProjects/sgs-gitcdn/main/Projects/Stack Ball/StackBall2_GDistribution.data.unityweb",
+"wasmCodeUrl": "https://raw.githubusercontent.com/SyceProjects/sgs-gitcdn/main/Projects/Stack Ball/StackBall2_GDistribution.wasm.code.unityweb",
+"wasmFrameworkUrl": "https://raw.githubusercontent.com/SyceProjects/sgs-gitcdn/main/Projects/Stack Ball/StackBall2_GDistribution.wasm.framework.unityweb",
 "TOTAL_MEMORY": 268435456,
 "graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
 "webglContextAttributes": {"preserveDrawingBuffer": false},

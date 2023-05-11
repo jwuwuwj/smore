@@ -10,3 +10,4 @@ Worlds Hardest Game/preloader.js - Line 29
 Friday Night Funkin/Funkin.js - Like the whole thing, use copy to replace
 Basketball Stars/index.html - Line 78, 74, 18, 21-24
 Basketball Stars/assets/basketball_legends_2019.min.js - A lot of the file
+Stack Ball/StackBall2_GDistribution.json - Line 4-6
