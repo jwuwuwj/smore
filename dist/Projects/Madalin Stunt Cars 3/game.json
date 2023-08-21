@@ -1,7 +1,7 @@
 {
   "companyName": "Madalin Games",
   "productName": "Madalin Cars Multiplayer",
-  "dataUrl": "unity/data.unityweb",
+  "dataUrl": "https://raw.githubusercontent.com/SyceProjects/sgs-gitcdn/main/Large Files/Madalin Stunt Cars 3/unity/data.unityweb",
   "asmCodeUrl": "unity/asmCode.unityweb",
   "asmMemoryUrl": "unity/asmMemory.unityweb",
   "asmFrameworkUrl": "unity/asmFramework.unityweb",
