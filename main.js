@@ -14,14 +14,14 @@ const times = [];
           fps = times.length
           minimum.push(fps)
           if(updateTime === null || updateTime < Date.now()){
-              if(lastMin.num === 2){
+              if(lastMin.num === 10){
                   lastMin.last = minimum.sort((a, b) => a - b)[0]
                   lastMin.num = 0
                   minimum = []
               }
               //console.log(`${fps - 1}/${lastMin.last - 1} FPS`)
               window.parent.postMessage({ id: "sendFPSData", data: "count", count: `${fps - 1}/${lastMin.last - 1} FPS` }, "*")
-              updateTime = Date.now() + 500
+              updateTime = Date.now() + 100
               lastMin.num++
           }
           refreshLoop()
